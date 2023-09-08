@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { setInput , add } from './TodoSlice'
+import { setInput , add ,remove} from './TodoSlice'
 
 
 
@@ -22,8 +22,11 @@ function Todo() {
       </div>
       <ul>
         {
-          todoselect.list.map((item) => {
-            return <li>{item}</li>
+          todoselect.list.map((item , index) => {
+            return <li>{item} 
+
+            <button onClick={()=>dispatch(remove(index))}>remove</button>
+            </li>
             
 
           })
