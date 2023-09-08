@@ -15,8 +15,8 @@ import { Provider } from 'react-redux'
 // import Tables from './2KiTable/TableStore2';
 // import Table2 from './2KiTable/Table2';
 
-import product from './API/ProductStore'
-import Product from './API/Product';
+import Todo from './todoList/Todo';
+import { todo } from './todoList/TodoStore';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -34,8 +34,8 @@ root.render(
   // </Provider>
 
 
-  <Provider store = {product}>
-<Product/>
+  <Provider store = {todo}>
+<Todo/>
   </Provider>
 
 
