@@ -12,46 +12,51 @@ import './Product.css'
 
 function Product() {
     const dispatch = useDispatch()
-    useEffect(() => {
-        dispatch(fetchApi())
-    }, [])
-
+   
     const selector = useSelector((selectData) => {
         return selectData.data
     })
+    useEffect(() => {
+        dispatch(fetchApi(selector.currentState))
+    }, [selector.currentState])
 
     return (
         <div className='wapper' >
-            {/* <button onClick={ ()=>{dispatch(number())}}>hello</button> */}
-            <p>{selector.currentState}</p>
-            {/* <p>{selector.productOf}</p> */}
+       { selector.loadingData  ? (
+        <p> Loading....</p>
+       ) : ( <div className=' first'>
+       <p>{selector.currentState}</p>
+    
 
-            {
-                selector.productOf.map((item, index) => {
-                    if (selector.currentState === index) {
-                        return <div className='main'>
-                            <h1>{item.title}</h1>
-                            <img src={item.image}></img>
-                            <p> Price :- {item.price}</p>
-                        </div>
-                    }
-                    else {
+       {
+           selector.productOf.map((item, index) => {
+               if (selector.currentState === index) {
+                   return <div className='main'>
+                       <h1>{item.title}</h1>
+                    <img src = { (item.image < 0 ? "not found" : item.image)} alt='image'></img>
+                      
+                       <p> Price :- {item.price}</p>
+                   </div>
+               }
+               else {
 
-                    }
+               }
 
 
-                })
-            }
+           })
+       }
 
-            {/* <div className='main'>
-            <h1>{selector.productOf[selector.currentState].title}</h1>
-            <img src={selector.productOf[selector.currentState].image}></img>
-        </div> */}
+       
 
-            <h1 className='left' onClick={() => { dispatch(left()) }}>left</h1>
-            <h1 className='right' onClick={() => { dispatch(right()) }}>right</h1>
-            {/* <button onClick={()=>{dispatch(para())}}>bye</button> */}
-
+       <button className='left' onClick={() =>  dispatch(left()) } 
+       disabled = { selector.currentState  > 18 ? true: false}
+       >
+         left
+       </button>
+       <button className='right' onClick={() =>  dispatch(right()) } disabled = {selector.currentState < 1 ? true : false} >right</button>
+       {/* <button onClick={()=>{dispatch(para())}}>bye</button> */}
+       </div>)}
+           
         </div>
     )
 }
@@ -61,12 +66,7 @@ export default Product
 
 
 
-const a = {
-    x: 1
-}
-const b = {
-    x: 1
-}
 
 
-console.log(a === b)
+
+
